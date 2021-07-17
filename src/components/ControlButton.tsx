@@ -2,7 +2,6 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { ReactElement, useState } from "react";
-import { Popover } from "react-tiny-popover";
 import styles from "./styles.module.css";
 
 interface ButtonProps {
@@ -26,7 +25,7 @@ export const ControlButton = ({
   icon,
   className,
   menuItems,
-  onMenuItemClick,
+  // onMenuItemClick,
 }: ButtonProps) => {
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -35,15 +34,15 @@ export const ControlButton = ({
     classes += ` ${className}`;
   }
 
-  const handleMenuClick = (item: MenuItem) => {
-    if (onMenuItemClick) {
-      onMenuItemClick(item);
-    }
-    setMenuVisible(false);
-  };
+  // const handleMenuClick = (item: MenuItem) => {
+  //   if (onMenuItemClick) {
+  //     onMenuItemClick(item);
+  //   }
+  //   setMenuVisible(false);
+  // };
 
   let menuTrigger: ReactElement | undefined;
-  let menu: ReactElement = <div />;
+  // let menu: ReactElement = <div />;
   if (menuItems && menuItems.length > 0) {
     classes += ` ${styles.hasDropdown}`;
     menuTrigger = (
@@ -57,23 +56,22 @@ export const ControlButton = ({
       </button>
     );
 
-    menu = (
-      <div className={styles.popoverMenu}>
-        <ul className={styles.list}>
-          {menuItems?.map((item, i) => {
-            return (
-              <li key={i} onClick={() => handleMenuClick(item)}>
-                {item.label}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
+    // menu = (
+    //   <div className={styles.popoverMenu}>
+    //     <ul className={styles.list}>
+    //       {menuItems?.map((item, i) => {
+    //         return (
+    //           <li key={i} onClick={() => handleMenuClick(item)}>
+    //             {item.label}
+    //           </li>
+    //         );
+    //       })}
+    //     </ul>
+    //   </div>
+    // );
   }
 
   return (
-    <Popover isOpen={menuVisible} positions={["top"]} content={menu}>
       <div className={styles.buttonWrapper}>
         <button disabled={disabled} className={classes} onClick={onClick}>
           {icon && (
@@ -83,6 +81,5 @@ export const ControlButton = ({
         </button>
         {menuTrigger}
       </div>
-    </Popover>
   );
 };
